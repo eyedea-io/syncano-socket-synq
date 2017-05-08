@@ -52,12 +52,14 @@ endpoints:
       payload:
         type: object
         description: Cusotm object with user meta data to update
-        example: " {\"test\": \"testing\"} "
+        example: |
+          {
+            "test": "testing"
+          }
       id:
         type: integer
         description: Syncano object id
         example: 1
-
 
   details:
     description: Returns synq vidoe object details
@@ -133,7 +135,10 @@ endpoints:
       custom_object:
         type: object
         description: Cusotm object with user meta data
-        example: " {\"test\": \"testing\"} "
+        example: |
+          {
+            "test": "testing"
+          }
     response:
       mimetype: application/json
       examples:
@@ -165,7 +170,7 @@ endpoints:
           description: Success
           example: |
             {
-              "Success"
+              "success": true
             }
 
   list:
@@ -200,35 +205,6 @@ endpoints:
               ]
             }
 
-  login_or_signup:
-    description: Simple script used to login or signup user to Syncano
-    file: scripts/login_or_signup.js
-    parameters:
-      username:
-        type: string
-        description: username of Syncano user
-        example: "Jo"
-      password:
-        type: string
-        description: user password
-        example: "password"
-    response:
-      mimetype: application/json
-      examples:
-        -
-          exit_code: 200
-          description: Success
-          example: |
-            {
-              token: "cb21ff98ac8c7dda8fcd0129b0adb0254dea5c8e",
-              username: "u"
-            }
-        -
-          exit_code: 400
-          description: Failed
-          example: |
-            {}
-
   subscribe_channel:
     channel: default.{user}
     response:
@@ -239,17 +215,17 @@ endpoints:
           description: Success
           example: |
             {
-              "author":{
-                  "admin":1
+              "author": {
+                  "admin": 1
                },
-               "created_at":"1980-01-01T00:00:00.804681Z",
-               "id":1,
-               "action":"custom",
-               "payload":{
-                  "message":"https://multicdn.synq.fm/projects/3/bb/43bbff5baf4cdb23297b71a0/uploads/videos/af/5/b7bc1fb189295fdd6f.mp4"
+               "created_at": "1980-01-01T00:00:00.804681Z",
+               "id": 1,
+               "action": "custom",
+               "payload": {
+                  "message": "https://multicdn.synq.fm/projects/3/bb/43bbff5baf4cdb23297b71a0/uploads/videos/af/5/b7bc1fb189295fdd6f.mp4"
                },
-               "metadata":{
-                  "type":"message"
+               "metadata": {
+                  "type": "message"
                }
             }
 
@@ -293,6 +269,7 @@ endpoints:
           {
             "test": "testing"
           }
+
     response:
       mimetype: application/json
       examples:
@@ -302,7 +279,7 @@ endpoints:
           example: |
             {
               "form": {
-                "AWSAccessKeyId": "KIAIP77Y7MMX3ITZM,
+                "AWSAccessKeyId": "KIAIP77Y7MMX3ITZM",
                 "Content-Type": "4e063ab632f24992aced5c6f8983229f",
                 "Policy": "eyJjb25kaXRpb25zIjogW3siYnVja2V0IjogInN5bnFmbSJ9LCB7ImFjbCI6ICJwdWJsaWMtcmVhZCJ9LCBbInN0YXJ0cy13aXRoIiwgIiRrZXkiLCAicHJvamVjdHMvMWMvZDcvMWNkNzQ5NGI5ZTg3NDFlMjg1MjA1NWU5ODQ4NmJjNDYvdXBsb2Fkcy92aWRlb3MvNDMvMGEvNDMwYWU1MTEwZTVjNDMxOTk3NWQ3ODQ4NzA4NjA4MmMubXA0Il0sIF=",
                 "Signature": "Rwilcb1jl4xrLYbOxsL2,

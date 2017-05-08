@@ -18,7 +18,7 @@ data.video_storage
 .firstOrFail()
 .then(() => {
   data.video_storage.delete(videoObject.id)
-    .then(() => response.json('Success'))
+    .then(() => response.json({success: true}))
     .catch(err => response.error(err))
 })
 .catch(err => response.error(err))
