@@ -1,0 +1,18 @@
+{
+  "dependencies": {
+    "form-data": "^2.1.4",
+    "node-fetch": "^1.6.3",
+    "syncano-server": "^0.8.1"
+  },
+  "scripts": {
+    "e2e": "cross-env NODE_ENV=test mocha 'tests/*.js' --reporter spec --require babel-register --timeout 4000"
+  },
+  "devDependencies": {
+    "babel-preset-es2015": "^6.22.0",
+    "babel-register": "^6.22.0",
+    "chai": "^3.5.0",
+    "chai-as-promised": "^6.0.0",
+    "cross-env": "^3.1.4",
+    "mocha": "^3.2.0"
+  }
+}

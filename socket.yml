@@ -1,0 +1,317 @@
+name: synq
+description: Integration Synq.fm with Syncano.io
+
+config:
+  SYNQ_API_KEY:
+    required: true
+
+classes:
+  video_storage:
+    - name: filename
+      type: string
+      filter_index: true
+      order_index: true
+    - name: duration
+      type: float
+    - name: height
+      type: integer
+    - name: synq_widget
+      type: string
+    - name: width
+      type: integer
+    - name: meta
+      type: string
+      filter_index: true
+    - name: extension
+      type: string
+    - name: synq_video_id
+      type: string
+      filter_index: true
+    - name: synq_upload
+      type: object
+    - name: embeded_url
+      type: text
+    - name: synq_state
+      type: string
+      filter_index: true
+      order_index: true
+    - name: user
+      type: reference
+      target: user
+      filter_index: true
+
+endpoints:
+  update:
+    description: Updates video meta data
+    file: scripts/update.js
+    parameters:
+      X-USER-KEY:
+        type: string
+        description: Syncano user key
+        example: "kjjn3234!kjdlalo"
+      payload:
+        type: object
+        description: Cusotm object with user meta data to update
+        example: " {\"test\": \"testing\"} "
+      id:
+        type: integer
+        description: Syncano object id
+        example: 1
+
+
+  details:
+    description: Returns synq vidoe object details
+    file: scripts/details.js
+    parameters:
+      X-USER-KEY:
+        type: string
+        description: Syncano user key
+        example: "kjjn3234!kjdlalo"
+      id:
+        type: integer
+        description: Syncano object id
+        example: 1
+    response:
+      mimetype: application/json
+      examples:
+        -
+          exit_code: 200
+          description: Success
+          example: |
+            {
+              "video_id": "4e063ab632f24992aced5c6f8983229f",
+              "input": {
+                  "url": "https://dcuu5ylopkzzf.cloudfront.net/projects/1c/d7/1cd7494b9e8741e2852055e98486bc46/uploads/videos/4e/06/4e063ab632f24992aced5c6f8983229f.mp4",
+                  "width": 1920,
+                  "height": 1080,
+                  "duration": "15.926000",
+                  "file_size": 34404630,
+                  "framerate": 29.51,
+                  "uploaded_at": "2016-10-09T15:36:54.624-04:00"
+              },
+              "state": "uploaded",
+              "player": {
+                  "views": 0,
+                  "embed_url": "https://player.synq.fm/embed/4e063ab632f24992aced5c6f8983229f"
+              },
+              "outputs": {
+                  "hls": {
+                      "url": "https://dcuu5ylopkzzf.cloudfront.net/projects/1c/d7/1cd7494b9e8741e2852055e98486bc46/derivatives/videos/4e/06/4e063ab632f24992aced5c6f8983229f/hls/4e063ab632f24992aced5c6f8983229f_hls.m3u8",
+                      "state": "complete"
+                  },
+                  "mp4_360": {
+                      "url": "https://dcuu5ylopkzzf.cloudfront.net/projects/1c/d7/1cd7494b9e8741e2852055e98486bc46/derivatives/videos/4e/06/4e063ab632f24992aced5c6f8983229f/mp4_360/4e063ab632f24992aced5c6f8983229f_mp4_360.mp4",
+                      "state": "complete"
+                  },
+                  "mp4_720": {
+                      "url": "https://dcuu5ylopkzzf.cloudfront.net/projects/1c/d7/1cd7494b9e8741e2852055e98486bc46/derivatives/videos/4e/06/4e063ab632f24992aced5c6f8983229f/mp4_720/4e063ab632f24992aced5c6f8983229f_mp4_720.mp4",
+                      "state": "complete"
+                  },
+                  "mp4_1080": {
+                      "url": "https://dcuu5ylopkzzf.cloudfront.net/projects/1c/d7/1cd7494b9e8741e2852055e98486bc46/derivatives/videos/4e/06/4e063ab632f24992aced5c6f8983229f/mp4_1080/4e063ab632f24992aced5c6f8983229f_mp4_1080.mp4",
+                      "state": "complete"
+                  },
+                  "webm_720": {
+                      "state": "progressing"
+                  }
+              },
+              "userdata": {
+                  "foo": "bar"
+              },
+              "created_at": "2016-08-01T15:41:51.555Z",
+              "updated_at": "2016-10-09T19:37:10.281Z"
+            }
+
+  uploader:
+    description: Returns uploader widget
+    file: scripts/uploader.js
+    parameters:
+      X-USER-KEY:
+        type: string
+        description: Syncano user key
+        example: "kjjn3234!kjdlalo"
+      custom_object:
+        type: object
+        description: Cusotm object with user meta data
+        example: " {\"test\": \"testing\"} "
+    response:
+      mimetype: application/json
+      examples:
+        -
+          exit_code: 200
+          description: Success
+          example: |
+            {
+              uploader_url: "https://synq.fm/uploader/477b6fa0bdd097cd2f17fd?token=fa9589a511be783b"
+            }
+
+  delete:
+    description: Remove Syncano video object
+    file: scripts/delete.js
+    parameters:
+      X-USER-KEY:
+        type: string
+        description: Syncano user key
+        example: "kjjn3234!kjdlalo"
+      id:
+        type: integer
+        description: Syncano object id
+        example: 1
+    response:
+      mimetype: application/json
+      examples:
+        -
+          exit_code: 200
+          description: Success
+          example: |
+            {
+              "Success"
+            }
+
+  list:
+    description: List user's video objects
+    file: scripts/list.js
+    parameters:
+      X-USER-KEY:
+        type: string
+        description: Syncano user key
+        example: "kjjn3234!kjdlalo"
+    response:
+      mimetype: application/json
+      examples:
+        -
+          exit_code: 200
+          description: Success
+          example: |
+            {
+              [
+                {
+                  "id": 1,
+                  "url": "https://multicdn.synq.fm/projects/3/bb/4c4bbc9d82db23297b71a0/uploads/videos/bd/55/b5138c92a3425e009e43.mp4"
+                },
+                {
+                  "id": 2,
+                  "url": "https://multicdn.synq.fm/projects/3/bb/4c4bbc9d82db23297b71a0/uploads/videos/bd/55/b5138c92a3425e009e43.mp4"
+                },
+                {
+                  "id": 3,
+                  "url": "https://multicdn.synq.fm/projects/3/bb/4c4bbc9d82db23297b71a0/uploads/videos/bd/55/b5138c92a3425e009e43.mp4"
+                }
+              ]
+            }
+
+  login_or_signup:
+    description: Simple script used to login or signup user to Syncano
+    file: scripts/login_or_signup.js
+    parameters:
+      username:
+        type: string
+        description: username of Syncano user
+        example: "Jo"
+      password:
+        type: string
+        description: user password
+        example: "password"
+    response:
+      mimetype: application/json
+      examples:
+        -
+          exit_code: 200
+          description: Success
+          example: |
+            {
+              token: "cb21ff98ac8c7dda8fcd0129b0adb0254dea5c8e",
+              username: "u"
+            }
+        -
+          exit_code: 400
+          description: Failed
+          example: |
+            {}
+
+  subscribe_channel:
+    channel: default.{user}
+    response:
+      mimetype: application/json
+      examples:
+        -
+          exit_code: 200
+          description: Success
+          example: |
+            {
+              "author":{
+                  "admin":1
+               },
+               "created_at":"1980-01-01T00:00:00.804681Z",
+               "id":1,
+               "action":"custom",
+               "payload":{
+                  "message":"https://multicdn.synq.fm/projects/3/bb/43bbff5baf4cdb23297b71a0/uploads/videos/af/5/b7bc1fb189295fdd6f.mp4"
+               },
+               "metadata":{
+                  "type":"message"
+               }
+            }
+
+  webhook:
+    description: Used to get notify when video upload is complete
+    file: scripts/webhook.js
+    parameters:
+      X-USER-KEY:
+        type: string
+        description: Syncano user key
+        example: "kjjn3234!kjdlalo"
+      video_url:
+        type: string
+        description: synq video url
+        example: "https://www.synq.fm/"
+      embed_url:
+        type: string
+        description: synq video embed url
+        example: "https://www.synq.fm/"
+      state:
+        type: string
+        description: synq video status
+        example: "uploaded"
+      video_id:
+        type: string
+        description: synq video id
+        example: "mmkju434anbwb8761njhh"
+
+  upload:
+    description: Returns neccesary data to begin upload vido to SYNQ
+    file: scripts/upload.js
+    parameters:
+      X-USER-KEY:
+        type: string
+        description: Syncano user key
+        example: "kjjn3234!kjdlalo"
+      custom_object:
+        type: object
+        description: Cusotm object with user meta data
+        example: |
+          {
+            "test": "testing"
+          }
+    response:
+      mimetype: application/json
+      examples:
+        -
+          exit_code: 200
+          description: Success
+          example: |
+            {
+              "form": {
+                "AWSAccessKeyId": "KIAIP77Y7MMX3ITZM,
+                "Content-Type": "4e063ab632f24992aced5c6f8983229f",
+                "Policy": "eyJjb25kaXRpb25zIjogW3siYnVja2V0IjogInN5bnFmbSJ9LCB7ImFjbCI6ICJwdWJsaWMtcmVhZCJ9LCBbInN0YXJ0cy13aXRoIiwgIiRrZXkiLCAicHJvamVjdHMvMWMvZDcvMWNkNzQ5NGI5ZTg3NDFlMjg1MjA1NWU5ODQ4NmJjNDYvdXBsb2Fkcy92aWRlb3MvNDMvMGEvNDMwYWU1MTEwZTVjNDMxOTk3NWQ3ODQ4NzA4NjA4MmMubXA0Il0sIF=",
+                "Signature": "Rwilcb1jl4xrLYbOxsL2,
+                "acl": "public-read,
+                "key": "projects/1c/d7/1cd7494b9e8741e28055e98486bc46/uploads/videos/4e/06/4e063ab632aced5c6f8983229f.mp4"
+              },
+              "url": "https://synqfm.s3.amazonaws.com/"
+            }
+        -
+          exit_code: 400
+          description: Failed
+          example: {}
